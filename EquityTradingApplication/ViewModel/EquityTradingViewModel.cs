@@ -111,7 +111,6 @@ namespace EquityTradingApplication.ViewModel
                     {
                         Positions.Add(position);
                     }
-                    CollectionViewSource.GetDefaultView(Positions).Refresh();
                 }
             }
             else
@@ -129,7 +128,6 @@ namespace EquityTradingApplication.ViewModel
                     {
                         Transactions.Add(transaction);
                     }
-                    CollectionViewSource.GetDefaultView(Positions).Refresh();
                 }
             }
             else
@@ -172,8 +170,8 @@ namespace EquityTradingApplication.ViewModel
 
             if (response.IsSuccessStatusCode)
             {
-                MessageBox.Show("Changes saved successfully");
                 LoadData();
+                MessageBox.Show("Changes saved successfully");
             }
             else
             {
