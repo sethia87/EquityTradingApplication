@@ -15,7 +15,7 @@ namespace EquityTradingApplication.ViewModel
     internal class EquityTradingViewModel :INotifyPropertyChanged
     {
         private const string UriString = "https://localhost:7272/";
-        private const string RequestTransactionUri = "api/equity";
+        private const string RequestTransactionUri = "api/transactions";
         private const string RequestPositionUri = "api/positions";
 
         private ObservableCollection<Position> _positions;
@@ -86,14 +86,9 @@ namespace EquityTradingApplication.ViewModel
 
         public EquityTradingViewModel()
         {
-            BuySellList = new List<string>();
-            BuySellList.Add("Buy");
-            BuySellList.Add("Sell");
+            BuySellList = ["Buy", "Sell"];
 
-            ActionList = new List<string>();
-            ActionList.Add("INSERT");
-            ActionList.Add("UPDATE");
-            ActionList.Add("CANCEL");
+            ActionList = ["INSERT", "UPDATE", "CANCEL"];
 
             Positions = new ObservableCollection<Position>();
             Transactions = new ObservableCollection<Transaction>();
@@ -121,7 +116,25 @@ namespace EquityTradingApplication.ViewModel
             }
             else
             {
-                MessageBox.Show("Error in retreiving data");
+                MessageBox.Show("Error in retreiving position data");
+            }
+            response = await client.GetAsync(RequestTransactionUri);
+            if (response.IsSuccessStatusCode)
+            {
+                var transactions = await response.Content.ReadFromJsonAsync<ObservableCollection<Transaction>>();
+                if (transactions != null)
+                {
+                    Transactions.Clear();
+                    foreach (var transaction in transactions)
+                    {
+                        Transactions.Add(transaction);
+                    }
+                    CollectionViewSource.GetDefaultView(Positions).Refresh();
+                }
+            }
+            else
+            {
+                MessageBox.Show("Error in retreiving transaction data");
             }
         }
 

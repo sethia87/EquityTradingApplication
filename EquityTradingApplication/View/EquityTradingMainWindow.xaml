@@ -54,7 +54,21 @@
             <Button Content="Submit Transaction" Width="200" HorizontalAlignment="Center" Command="{Binding SubmitTransactionCommand}" />
 
             <Grid>
-                <DataGrid ItemsSource="{Binding Positions}" IsReadOnly="True" AutoGenerateColumns="False" CanUserAddRows="False" Margin="0,20,0,0" Height="200">
+                <DataGrid ItemsSource="{Binding Transactions}" IsReadOnly="True" AutoGenerateColumns="False" CanUserAddRows="False" Margin="0,20,0,0" Height="Auto">
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Header="Transaction ID" Binding="{Binding TransactionID}" />
+                        <DataGridTextColumn Header="Trade ID" Binding="{Binding TradeID}" />
+                        <DataGridTextColumn Header="Version" Binding="{Binding Version}" />
+                        <DataGridTextColumn Header="SecurityCode" Binding="{Binding SecurityCode}" />
+                        <DataGridTextColumn Header="Quantity" Binding="{Binding Quantity}" />
+                        <DataGridTextColumn Header="Action" Binding="{Binding Action}" />
+                        <DataGridTextColumn Header="BuySell" Binding="{Binding BuySell}" />
+                    </DataGrid.Columns>
+                </DataGrid>
+            </Grid>
+
+            <Grid>
+                <DataGrid ItemsSource="{Binding Positions}" IsReadOnly="True" AutoGenerateColumns="False" CanUserAddRows="False" Margin="0,20,0,0" Height="Auto">
                     <DataGrid.Columns>
                         <DataGridTextColumn Header="Quantity" Binding="{Binding Quantity}" />
                         <DataGridTextColumn Header="Security" Binding="{Binding SecurityCode}" />
